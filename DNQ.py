@@ -1,4 +1,4 @@
-#Import the dependencies.
+# Import the dependencies.
 from collections import deque                          # Store for the stacking the frames and the average score of the last 10 consecustive episodes (to see improvement)
 import matplotlib.pyplot as plt                        # To plot the graph of average episodes over time
 from keras import backend as K 
@@ -10,14 +10,13 @@ import numpy as np                                     # Used for matrix calcula
 import os                                              # To save the File
 import retro                                           # To load the game.
 
-#Dependecies for the Q-Deep Networks
+# Dependecies for the Q-Deep Networks
 from keras.models import Sequential                    # Imports the Sequential Model which allows to have multiple layers.
 from keras.layers import Dense, Conv2D, Flatten        # Imports Convolutional, Flatten and Fully Connected layers
 from keras.optimizers import RMSprop                   # Imports optimizers RMSprop
 
 
-#The hyper-parameteres are based on this article (https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf)
-
+# The hyper-parameteres are based on this article (https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf)
 EPISODES = 50                                           # Maximum number of episodes
 MAX_STEPS = 50000                                       # Maximum number of steps an agent can take in one episode
 MEMORY_SIZE = 1000000                                   # Size of the memory that stores agent's experiences
@@ -27,7 +26,8 @@ BATCH_SIZE = 64                                         # Number of training cas
 HISTORY_SIZE = 4                                        # The number of most recent frames experienced by the agent that are given as input to the Q network.
 INPUT_SHAPE = (105, 80, 4)                              # The Input shape of the frame that is going to be inputted into the Q-deep network.
 FRAME_SIZE = (105,80)
-#Parameters
+
+# Constants
 ENV_NAME = 'SpaceInvaders-Atari2600'
 NORMALIZE_VALUES = 255
 
@@ -37,14 +37,17 @@ class DNQAgent:
         self.action_size = env.action_space.n                                                     # The size of possible actions made by an agent
         self.possible_actions = np.array(np.identity(env.action_space.n,dtype=int).tolist())      # Creates an array of all possible actions
         self.memory = deque(maxlen = MEMORY_SIZE)                                                 # Samples all the experiences that are then used for training the agent
-        #Hyper parameters
+        
+        # Hyper parameters
         self.gamma = 0.99                                                                         # Discount Factor for Q Deep learning
-        #EPSILON GREEDY 
+        
+        # EPSILON GREEDY 
         self.epsilon_greedy = 0                                                                   # Probability used for exploration (Exploitation vs Exploration dilemma)
         self.epsilon_min = 0.1                                                                    # The final (minimum) value for the epsilon
         self.epslon_start = 1                                                                     # The initial probability for exploration
         self.decay_rate = 0.00002                                                                 # The decay at which the probability for exploration will decrease
-        #Pre-processing and stacking the frames
+        
+        # Pre-processing and stacking the frames
         self.stack = deque([np.zeros(FRAME_SIZE, dtype=np.uint8) for i in range(HISTORY_SIZE)], maxlen= HISTORY_SIZE)   # Stacks the 4 frames
 
     def atari_network(self):
@@ -77,22 +80,22 @@ class DNQAgent:
         model.add(Dense(512 , activation="relu"))         #512 hidden neurons
         model.add(Dense(self.action_size))                #The Output layer
         
-        #Uses the RMprop optimizer with the same parameters used in the article.
+        # Uses the RMprop optimizer with the same parameters used in the article.
         model.compile(loss="mse",optimizer=RMSprop(lr=0.00025,rho=0.95,epsilon=0.01),metrics=["accuracy"])  
         return model
     
-    #Append agent's observation to the memory.
+    # Append agent's observation to the memory.
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done)) 
 
-    #It is used while the agent is observing the envrionment.
-    #Returns a random action performed by an action. 
+    # It is used while the agent is observing the envrionment.
+    # Returns a random action performed by an action. 
     def random(self):                                                                       
         action = np.random.choice(self.action_size)                                                 
         return self.possible_actions[action]
 
 
-    #Returns a normalized state value
+    # Returns a normalized state value
     def normalize(self, state):
         state = state / NORMALIZE_VALUES
         normalized_state = np.expand_dims(state, axis=0)
