@@ -5,6 +5,6 @@ The project implements Deep Q-Network (DQN) with experience replay as our deep r
 # Deep Q-learning with experience replay
 
 The architecture of the network takes the last 4 video framers and feeds them into convolutional layers that are followed by f
-```
+
 ![](Images/network.PNG)
-```
+
