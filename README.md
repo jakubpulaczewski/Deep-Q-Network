@@ -21,3 +21,9 @@ The input 105 x 80 x 4 is fed into the first convolutional layer of 32 of 8x8 fi
 In the second part, we explained the network architecture in more detail and the logic behind it. BEfore, we get into more details of our deep reinforcement learning, it is important to menton the bellman equation as shown in Eq. (1). The bellman equation is used to assess the q-value, also known as quality, of a given action-state pair. It states that the quality of taking an action 𝑎 at a given stage 𝑠 is equal to the immediate reward 𝑟(𝑠,𝑎) plus the maximum discounted reward of the next state [3].
 
 
+
+# References (to be changed)
+
+[1] Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D. and Riedmiller, M., 2013. Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
+[2] Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A.A., Veness, J., Bellemare, M.G., Graves, A., Riedmiller, M., Fidjeland, A.K., Ostrovski, G. and Petersen, S., 2015. Human-level control through deep reinforcement learning. Nature, 518(7540), pp.529-533.
+[3] Watkins, C.J. and Dayan, P., 1992. Q-learning. Machine learning, 8(3-4), pp.279-292.
