@@ -1,14 +1,12 @@
 # Import the dependencies.
 from collections import deque                          # Store for the stacking the frames and the average score of the last 10 consecustive episodes (to see improvement)
-import matplotlib.pyplot as plt                        # To plot the graph of average episodes over time
+import matplotlib.pyplot as plt                      
 from keras import backend as K 
-
-from tqdm import tqdm                                  # To show the loading bar
-
-import random                                          # Used for the Epsilon-Greedy method
-import numpy as np                                     # Used for matrix calculations and other calculations.
-import os                                              # To save the File
-import retro                                           # To load the game.
+from tqdm import tqdm                                 
+import random                                          
+import numpy as np                                     
+import os                                             
+import retro                                           
 
 # Dependecies for the Q-Deep Networks
 from keras.models import Sequential                    # Imports the Sequential Model which allows to have multiple layers.
@@ -17,6 +15,7 @@ from keras.optimizers import RMSprop                   # Imports optimizers RMSp
 
 
 # The hyper-parameteres are based on this article (https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf)
+
 EPISODES = 50                                           # Maximum number of episodes
 MAX_STEPS = 50000                                       # Maximum number of steps an agent can take in one episode
 MEMORY_SIZE = 1000000                                   # Size of the memory that stores agent's experiences
