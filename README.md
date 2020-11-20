@@ -22,8 +22,16 @@ In the second part, we explained the network architecture in more detail and the
 
 ![](Images/bellman_equation.png)
 
+This means that we can use a neural network to compute what action gives the highest future reward at any state. However, at the start of any game, an agent does not know anything about the environment which means that the agent needs to explore the environment with epsilon-greedy approach and slowly over time decay the epsilon greedy as the agent’s understanding of the environment increases. After some time, the agent will start using bellman equation as shown in Eq. (1) for exploiting current best action and states in order to make predictions about which actions give the highest future reward in order to win the game.
 
-# References (to be changed)
+Below, the algorithm for the Deep Q-learning with experience replay is shown. This technique is a biologically inspired mechanism that uses a random sample of prior actions (experiences) instead of selecting the most recent action.
+
+The algorithm first initializes the replay memory 𝐷 where all the experiences of an agent will be stored. It also initializes action value function Q (the neural network) with random weights (the goal is to find the optimal weights). For each episode, it initialises a new state 𝑠𝑡 and pre-process this state so that the complexity will be reduced (as it will be later passed to the neural network). Within each episode, there is a limit of action 𝑇 that an agent can take in any episode. As previously described, because an agent does not have knowledge about the environment so an agent will use epsilon-greedy approach in order to select an action. After that, the action is executed, and the agent receives an immediate reward 𝑟𝑡 and next state 𝑠𝑡+1. The transition <𝑠𝑡,𝑎𝑡,𝑟𝑡,𝑠𝑡+1> is stored in the memory 𝐷. Then select random minibatch of transition from the memory and if the next state is terminal then assign 𝑟𝑗 to the 𝑦𝑗. Otherwise, use the neural network 𝑄 on the bellman equation in order to assess the quality of a given action-state pair.
+
+![](Images/algo.png)
+
+
+# References 
 
 [1] Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D. and Riedmiller, M., 2013. Playing atari with deep reinforcement learning. arXiv preprint arXiv:1312.5602.
 
