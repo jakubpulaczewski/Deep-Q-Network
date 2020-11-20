@@ -2,7 +2,7 @@
 
 The project implements Deep Q-Network (DQN) with experience replay as our deep reinforcement learning model to train the agent to play the space invaders game that was imported from the Open-AI gym retro. It is important to note that the DQN is an existing deep reinforcement model which is trained with a variant of Q-learning algorithm using the RMSprop optimizer to update its parameters, as it was chosen by a group of Deepmind researchers in the paper for the Nature [1,2].
 
-# Deep Q-learning with experience replay
+## Deep Q-learning with experience replay
 
 The architecture of the network takes the last 4 video frames and feeds them into convolutional layers that are followed by fully connected layers to compute the Q values for each action. In space invaders game, there are only 8 Q values since the agent can only perform 8 actions.
 
@@ -16,7 +16,7 @@ It was previously mentioned that we use a stack of 4 frames that are fed into ou
 
 The input 105 x 80 x 4 is fed into the first convolutional layer of 32 of 8x8 filters, it is then passed respectively to the second layer of 64 of 4x4 filters and the third layer of 64 of 3x3 filters. Subsequently, the data is flattened, resulting in a fully collected layer (dense) of 512 units that is connected to the output layer of 8 units (one output unit for each potential action). It is important to note that all convolutional layers allow padding; that is, the first layer has a stride of 4, the second has a stride of 2 and the last convolutional layer has a stride of 1. Additionally, all hidden layers (3 convo layers and 512 hidden unit dense layer) use rectified linear unit (ReLU) activation function.
 
-# Deep reinforcement learning model
+## Deep reinforcement learning model
 
 In the second part, we explained the network architecture in more detail and the logic behind it. BEfore, we get into more details of our deep reinforcement learning, it is important to menton the bellman equation as shown in Eq. (1). The bellman equation is used to assess the q-value, also known as quality, of a given action-state pair. It states that the quality of taking an action 𝑎 at a given stage 𝑠 is equal to the immediate reward 𝑟(𝑠,𝑎) plus the maximum discounted reward of the next state [3].
 
